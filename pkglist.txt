@@ -1,0 +1,15 @@
+git
+base-devel
+hyprland
+kitty
+waybar
+rofi-wayland
+dunst
+ttf-font-awesome
+ttf-nerd-fonts-symbols
+xdg-desktop-portal-hyprland
+bash-completion
+fish
+starship
+kubectl
+kubectx

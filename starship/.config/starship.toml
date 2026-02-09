@@ -1,0 +1,9 @@
+[kubernetes]
+disabled = false
+# Shows: symbol + context + namespace
+format = 'on [⛵ $context \($namespace\)](bold blue) '
+
+# (Optional) Map specific contexts to colors (e.g., Red for Prod!)
+[kubernetes.context_aliases]
+"my-prod-cluster" = "PRODUCTION"
+"dev-cluster" = "dev"
