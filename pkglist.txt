@@ -13,3 +13,4 @@ fish
 starship
 kubectl
 kubectx
+hyprlock

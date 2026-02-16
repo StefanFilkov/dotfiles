@@ -3,7 +3,7 @@
     "position": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": [],
-    "modules-right": ["pulseaudio", "network", "battery", "clock", "tray"],
+    "modules-right": ["pulseaudio","network#vpn", "network", "battery", "clock", "tray"],
 
     "hyprland/workspaces": {
         "disable-scroll": true,
@@ -30,7 +30,16 @@
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr}",
         "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠"
+        "format-disconnected": "Disconnected ⚠",
+        "on-click": "nm-connection-editor" // <--- ADD THIS LINE
+    },
+
+    "network#vpn": {
+    "interface": "tun0",  // Usually 'tun0' for OpenVPN or 'wg0' for WireGuard
+    "format": "🔒 VPN",
+    "format-disconnected": "", // Hides the module when VPN is off
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "on-click": "nm-connection-editor"
     },
 
     "pulseaudio": {

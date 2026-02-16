@@ -71,6 +71,7 @@ run_cmd() {
 			amixer set Master mute
 			systemctl suspend
 		elif [[ $1 == '--logout' ]]; then
+            # --- FIX: ADDED HYPRLAND SUPPORT HERE ---
 			if [[ "$DESKTOP_SESSION" == 'openbox' ]]; then
 				openbox --exit
 			elif [[ "$DESKTOP_SESSION" == 'bspwm' ]]; then
@@ -79,6 +80,9 @@ run_cmd() {
 				i3-msg exit
 			elif [[ "$DESKTOP_SESSION" == 'plasma' ]]; then
 				qdbus org.kde.ksmserver /KSMServer logout 0 0 0
+            # Check for Hyprland (Case insensitive just to be safe)
+            elif [[ "$DESKTOP_SESSION" == "hyprland" ]] || [[ "$XDG_CURRENT_DESKTOP" == "Hyprland" ]]; then
+                hyprctl dispatch exit
 			fi
 		fi
 	else
@@ -96,7 +100,10 @@ case ${chosen} in
 		run_cmd --reboot
         ;;
     $lock)
-		if [[ -x '/usr/bin/betterlockscreen' ]]; then
+        # --- FIX: ADDED HYPRLOCK SUPPORT HERE ---
+		if [[ -x '/usr/bin/hyprlock' ]]; then
+			hyprlock
+		elif [[ -x '/usr/bin/betterlockscreen' ]]; then
 			betterlockscreen -l
 		elif [[ -x '/usr/bin/i3lock' ]]; then
 			i3lock
