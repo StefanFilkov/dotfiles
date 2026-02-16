@@ -3,7 +3,7 @@
     "position": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": [],
-    "modules-right": ["pulseaudio","network#vpn", "network", "battery", "clock", "tray"],
+    "modules-right": ["pulseaudio","network#vpn","hyprland/language", "network", "battery", "clock", "tray"],
 
     "hyprland/workspaces": {
         "disable-scroll": true,
@@ -14,6 +14,12 @@
     "clock": {
         "format": "{:%H:%M}  ",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>"
+    },
+    "hyprland/language": {
+    "format": "{}",
+    "format-en": "US",
+    "format-bg": "BG",
+    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next"
     },
 
     "battery": {
