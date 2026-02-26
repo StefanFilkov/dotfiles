@@ -1,0 +1,408 @@
+/* ============================================================
+   SwayNC — Apple Liquid Glass (Dark Theme) — GTK COMPATIBLE
+   No backdrop-filter (not supported in GTK CSS).
+   Blur is handled entirely by Hyprland layerrules.
+   Make sure your hyprland.conf has:
+     layerrule = blur on, match:namespace swaync-control-center
+     layerrule = ignore_alpha 0.5, match:namespace swaync-control-center
+     layerrule = blur on, match:namespace swaync-notification-window
+     layerrule = ignore_alpha 0.5, match:namespace swaync-notification-window
+   ============================================================ */
+
+/* ── Global reset ── */
+* {
+  font-family: -apple-system, "SF Pro Text", "Helvetica Neue", Ubuntu, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  transition: background 0.2s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+/* ══════════════════════════════
+   CONTROL CENTER
+   ══════════════════════════════ */
+
+.control-center {
+  background: rgba(12, 12, 18, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.10),
+    0 24px 56px rgba(0, 0, 0, 0.55),
+    0 6px 18px rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.88);
+  padding: 12px;
+  margin: 0;
+}
+
+/* ── Empty state label ── */
+.control-center-empty-text {
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 12px;
+  font-weight: 400;
+  padding: 24px 0;
+}
+
+/* ── Header / title row ── */
+.control-center-header {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 6px 6px;
+}
+
+/* ── Notification list inside control center ── */
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 12px;
+}
+
+/* ══════════════════════════════
+   NOTIFICATION POPUP WINDOW
+   ══════════════════════════════ */
+
+.notification-window {
+  background: transparent;
+  border-radius: 18px;
+  padding: 0;
+  margin: 0;
+}
+
+/* ══════════════════════════════
+   NOTIFICATION ROWS & GROUPS
+   ══════════════════════════════ */
+
+.notification-row {
+  outline: none;
+  margin: 4px 0;
+}
+
+.notification-group {
+  background: transparent;
+  margin: 6px 0;
+}
+
+.notification-group-headers {
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 4px;
+  margin-bottom: 4px;
+}
+
+.notification-group-collapse-button,
+.notification-group-expand-button {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.50);
+  font-size: 11px;
+  padding: 3px 10px;
+  margin: 2px 0;
+}
+
+.notification-group-collapse-button:hover,
+.notification-group-expand-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.80);
+}
+
+/* ══════════════════════════════
+   INDIVIDUAL NOTIFICATION CARD
+   ══════════════════════════════ */
+
+.notification {
+  background: rgba(255, 255, 255, 0.065);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.10),
+    0 4px 16px rgba(0, 0, 0, 0.35);
+  padding: 0;
+  margin: 4px 0;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* Popup notifications have a slightly more opaque glass */
+.floating-notifications .notification {
+  background: rgba(18, 18, 26, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.12),
+    0 8px 32px rgba(0, 0, 0, 0.50);
+}
+
+/* ── Urgency accents ── */
+.critical .notification {
+  border-color: rgba(255, 59, 48, 0.38);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 59, 48, 0.15),
+    0 4px 16px rgba(255, 59, 48, 0.18);
+}
+
+.low .notification {
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+/* ── Default action area (the clickable card body) ── */
+.notification-default-action {
+  background: transparent;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  outline: none;
+}
+
+.notification-default-action:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── App icon ── */
+.notification-app-icon {
+  border-radius: 9px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.40);
+  margin-right: 10px;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+/* ── Text labels ── */
+.summary {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 2px;
+}
+
+.body {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.45;
+}
+
+.app-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.02em;
+}
+
+.time {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+/* ── Inline image / media ── */
+.image {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.40);
+  margin-left: 10px;
+}
+
+/* ══════════════════════════════
+   CLOSE BUTTON
+   ══════════════════════════════ */
+
+.close-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 20px;
+  min-height: 20px;
+  padding: 0;
+  margin: 6px;
+  box-shadow: none;
+}
+
+.close-button:hover {
+  background: rgba(255, 59, 48, 0.22);
+  border-color: rgba(255, 59, 48, 0.40);
+  color: rgba(255, 100, 90, 0.96);
+}
+
+.close-button:active {
+  background: rgba(255, 59, 48, 0.32);
+}
+
+/* ══════════════════════════════
+   NOTIFICATION ACTION BUTTONS
+   (e.g. "Open", "Dismiss")
+   ══════════════════════════════ */
+
+.notification-action {
+  background: rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0;
+  color: rgba(10, 132, 255, 0.92);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 14px;
+}
+
+.notification-action:first-child {
+  border-bottom-left-radius: 14px;
+}
+
+.notification-action:last-child {
+  border-bottom-right-radius: 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.notification-action:hover {
+  background: rgba(10, 132, 255, 0.12);
+  color: rgba(10, 132, 255, 1.0);
+}
+
+.notification-action:active {
+  background: rgba(10, 132, 255, 0.18);
+}
+
+/* ══════════════════════════════
+   CLEAR ALL BUTTON
+   ══════════════════════════════ */
+
+.clear-all-button {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 16px;
+  margin: 8px 4px 4px;
+}
+
+.clear-all-button:hover {
+  background: rgba(255, 59, 48, 0.18);
+  border-color: rgba(255, 59, 48, 0.32);
+  color: rgba(255, 100, 90, 0.96);
+  box-shadow: inset 0 0.5px 0 rgba(255, 59, 48, 0.12);
+}
+
+.clear-all-button:active {
+  background: rgba(255, 59, 48, 0.28);
+}
+
+/* ══════════════════════════════
+   DO NOT DISTURB TOGGLE
+   ══════════════════════════════ */
+
+.toggle-button {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 14px;
+  margin: 4px;
+}
+
+.toggle-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.90);
+}
+
+.toggle-button.active {
+  background: rgba(10, 132, 255, 0.20);
+  border-color: rgba(10, 132, 255, 0.38);
+  color: rgba(80, 170, 255, 0.96);
+  box-shadow: inset 0 0.5px 0 rgba(10, 132, 255, 0.15);
+}
+
+.toggle-button.active:hover {
+  background: rgba(10, 132, 255, 0.28);
+  border-color: rgba(10, 132, 255, 0.50);
+  color: rgba(100, 185, 255, 1.0);
+}
+
+/* ══════════════════════════════
+   PROGRESS BAR
+   (e.g. media / download)
+   ══════════════════════════════ */
+
+progressbar,
+progress {
+  border-radius: 99px;
+}
+
+progressbar trough {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 99px;
+  border: none;
+  min-height: 4px;
+}
+
+progressbar progress {
+  background: rgba(10, 132, 255, 0.82);
+  border-radius: 99px;
+  border: none;
+  min-height: 4px;
+}
+
+/* ══════════════════════════════
+   SCROLLBAR
+   ══════════════════════════════ */
+
+scrollbar {
+  background: transparent;
+  border: none;
+  min-width: 4px;
+}
+
+scrollbar slider {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 99px;
+  border: none;
+  min-width: 4px;
+  min-height: 32px;
+}
+
+scrollbar slider:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+/* ══════════════════════════════
+   SEPARATOR / DIVIDER
+   ══════════════════════════════ */
+
+separator {
+  background: rgba(255, 255, 255, 0.07);
+  min-height: 1px;
+  margin: 4px 6px;
+}
+
+/* ══════════════════════════════
+   TOOLTIP
+   ══════════════════════════════ */
+
+tooltip {
+  background: rgba(18, 18, 24, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  color: rgba(255, 255, 255, 0.88);
+  padding: 6px 10px;
+}
+
+tooltip label {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 12px;
+}
