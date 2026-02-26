@@ -3,7 +3,7 @@
     "position": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": [],
-    "modules-right": ["pulseaudio","network#vpn","hyprland/language", "network", "battery", "clock", "tray"],
+    "modules-right": ["backlight","bluetooth","pulseaudio","network#vpn","hyprland/language", "network", "battery", "clock", "tray"],
 
     "hyprland/workspaces": {
         "disable-scroll": true,
@@ -47,21 +47,45 @@
     "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
     "on-click": "nm-connection-editor"
     },
+        "bluetooth": {
+    "format": " {status}",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    // Tooltip shows all connected devices on hover
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    // Left-click opens the Bluetooth manager GUI
+    "on-click": "blueman-manager"
+    },
 
     "pulseaudio": {
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
+    // Adds the Bluetooth icon if a headset is connected
+    "format": "{icon} {volume}%",
+    "format-bluetooth": " {icon} {volume}%",
+    "format-muted": " Muted",
+    "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", ""]
+    },
+    "scroll-step": 5,
+    // Left-click opens the advanced volume mixer
+    "on-click": "pavucontrol",
+    // Right-click mutes the audio
+    "on-click-right": "pamixer -t" 
+    },
+    "backlight": {
+    // "device": "intel_backlight", // You can usually leave this commented out and it will auto-detect
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "on-scroll-up": "brightnessctl set 1%+",
+    "on-scroll-down": "brightnessctl set 1%-",
+    "min-length": 6
     }
 }

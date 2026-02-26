@@ -23,6 +23,7 @@ stow waybar
 stow rofi
 stow fish
 stow kitty
+stow swappy
 # 5. Fish & Fisher Setup
 echo "Setting up Fish..."
 # We run this command INSIDE fish using the -c flag

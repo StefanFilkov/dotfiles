@@ -52,7 +52,9 @@ button:hover {
 #pulseaudio:hover {
     background-color: #a37800;
 }
-
+#bluetooth:hover{
+    background-color: #a37800;
+}
 #workspaces button {
     padding: 0 5px;
     background-color: transparent;
@@ -86,6 +88,7 @@ button:hover {
 #backlight,
 #network,
 #pulseaudio,
+#bluetooth,
 #wireplumber,
 #custom-media,
 #tray,
@@ -199,6 +202,15 @@ label:focus {
 }
 
 #pulseaudio.muted {
+    background-color: #90b1b1;
+    color: #2a5c45;
+}
+#bluetooth {
+    background-color: #f1c40f;
+    color: #000000;
+}
+
+#bluetooth.muted {
     background-color: #90b1b1;
     color: #2a5c45;
 }

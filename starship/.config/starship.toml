@@ -1,9 +1,26 @@
-[kubernetes]
-disabled = false
-# Shows: symbol + context + namespace
-format = 'on [⛵ $context \($namespace\)](bold blue) '
+# [kubernetes]
+# disabled = false
+# # Shows: symbol + context + namespace
+# format = 'on [⛵ $context \($namespace\)](bold blue) '
 
 # (Optional) Map specific contexts to colors (e.g., Red for Prod!)
 [kubernetes.context_aliases]
 "my-prod-cluster" = "PRODUCTION"
 "dev-cluster" = "dev"
+
+[[kubernetes.contexts]]
+context_pattern = "arn:aws:eks:eu-north-1:068561046261:cluster/palk-dev-cluster"
+context_alias = "palk-dev"
+
+[aws]
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = 'bold yellow'
+symbol = '☁️🟠  '
+disabled = false
+
+[kubernetes]
+disabled = false
+symbol = "☸ "
+style = "bold blue"
+# This format shows: ☸ context (namespace)
+format = '[$symbol$context( \($namespace\))]($style) '

@@ -6,4 +6,5 @@ starship init fish | source
 
 # Aliases (Optional - Add your own!)
 alias l="ls -la"
-alias k="kubectl"
+abbr -a k kubectl
+abbr -a kns kubens
