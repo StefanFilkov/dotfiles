@@ -2,6 +2,11 @@
 # disabled = false
 # # Shows: symbol + context + namespace
 # format = 'on [⛵ $context \($namespace\)](bold blue) '
+right_format = "$time"
+format = """
+$kubernetes$aws
+$directory$git_branch$git_status$character
+"""
 
 # (Optional) Map specific contexts to colors (e.g., Red for Prod!)
 [kubernetes.context_aliases]
@@ -13,14 +18,27 @@ context_pattern = "arn:aws:eks:eu-north-1:068561046261:cluster/palk-dev-cluster"
 context_alias = "palk-dev"
 
 [aws]
-format = 'on [$symbol($profile )(\($region\) )]($style)'
+format = '[$symbol$profile:$region]($style)'
 style = 'bold yellow'
-symbol = '☁️🟠  '
+symbol = '🟠'
 disabled = false
+
+[time]
+disabled = false
+format = '[\[$time\]]($style)'
+time_format = "%H:%M:%S"
+style = "dimmed white"
 
 [kubernetes]
 disabled = false
-symbol = "☸ "
+symbol = "❄️"
 style = "bold blue"
 # This format shows: ☸ context (namespace)
-format = '[$symbol$context( \($namespace\))]($style) '
+# format = '[$symbol$context( \($namespace\))]($style) '
+# format = '[❄️:\[$context·$namespace\]]($style) '
+format = '[$symbol$context·$namespace]($style) '
+
+[directory]
+format = '[$path]($style)[$read_only]($read_only_style) '
+truncation_length = 4
+truncate_to_repo = false 

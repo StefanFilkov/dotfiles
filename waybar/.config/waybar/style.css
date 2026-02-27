@@ -246,7 +246,20 @@ window#waybar {
   font-weight: 600;
   letter-spacing: 0.01em;
 }
+/* This targets the popup box itself */
+tooltip {
+    background: rgba(30, 30, 46, 0.8); /* Dark translucent background */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
 
+/* This targets the text inside the tooltip */
+tooltip label {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 16px; /* Adjust this to make it "bigger" */
+    padding: 10px;
+    color: #cdd6f4;
+}
 /* ══════════════════════════════
    TRAY
    ══════════════════════════════ */

@@ -3,17 +3,41 @@
     "position": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": [],
-    "modules-right": ["backlight","bluetooth","pulseaudio","network#vpn","hyprland/language", "network", "battery", "clock", "tray","custom/notification"],
+    "modules-right": ["backlight","bluetooth","pulseaudio","hyprland/language","network#vpn", "network", "battery", "clock", "tray","custom/notification"],
 
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "format": "{name}"
     },
+    "tray": {
+    "icon-size": 16,        // The size of the icons in pixels
+    "spacing": 8,          // Gap between the icons
+    "show-passive-items": true, // Shows icons even if they aren't "active"
+    "reverse-direction": false // New icons appear on the left instead of right
+    },
     
     "clock": {
         "format": "{:%H:%M}  ",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>"
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "format": {
+                "months":     "<span color='#ffead3'><b>{}</b></span>",
+                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions":  {
+            "on-click-right": "mode",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
     },
     "hyprland/language": {
     "format": "{}",
@@ -62,14 +86,14 @@
     },
 
     "network#vpn": {
-    "interface": "tun0",  // Usually 'tun0' for OpenVPN or 'wg0' for WireGuard
-    "format": "🔒 VPN",
-    "format-disconnected": "", // Hides the module when VPN is off
-    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
-    "on-click": "nm-connection-editor"
+        "interface": "tun0",
+        "format": "VPN",
+        "format-disconnected": "", 
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor"
     },
-        "bluetooth": {
-    "format": " {status}",
+    "bluetooth": {
+    "format": "",
     "format-connected": " {device_alias}",
     "format-connected-battery": " {device_alias} {device_battery_percentage}%",
     // Tooltip shows all connected devices on hover
