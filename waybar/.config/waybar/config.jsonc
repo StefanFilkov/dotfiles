@@ -132,5 +132,13 @@
     "on-scroll-up": "brightnessctl set 1%+",
     "on-scroll-down": "brightnessctl set 1%-",
     "min-length": 6
-    }
+    },
+    "custom/vpn": {
+    "exec": "~/dotfiles/scripts/wireguard-vpn/wireguard.sh",
+    "return-type": "json",
+    "interval": 5,
+    "format": "󰆧 {}",
+    "on-click": "~/dotfiles/scripts/wireguard-vpn/wireguard-rofi.sh",
+    "tooltip": false
+},
 }

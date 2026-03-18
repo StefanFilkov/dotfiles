@@ -31,7 +31,7 @@ style = "dimmed white"
 
 [kubernetes]
 disabled = false
-symbol = "❄️"
+symbol = "❄️ "
 style = "bold blue"
 # This format shows: ☸ context (namespace)
 # format = '[$symbol$context( \($namespace\))]($style) '
