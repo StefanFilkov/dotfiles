@@ -23,6 +23,7 @@ stow waybar
 stow rofi
 stow fish
 stow kitty
+stow btop
 stow swappy
 # 5. Fish & Fisher Setup
 echo "Setting up Fish..."

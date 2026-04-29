@@ -1,144 +1,164 @@
 {
     "layer": "top",
     "position": "top",
-    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
     "modules-center": [],
-    "modules-right": ["backlight","bluetooth","pulseaudio","hyprland/language","network#vpn", "network", "battery", "clock", "tray","custom/notification"],
-
+    "modules-right": [
+        "backlight",
+        "bluetooth",
+        "pulseaudio",
+        "hyprland/language",
+        "network#vpn",
+        "network",
+        "battery",
+        "clock",
+        "tray",
+        "custom/notification"
+    ],
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "format": "{name}"
     },
     "tray": {
-    "icon-size": 16,        // The size of the icons in pixels
-    "spacing": 8,          // Gap between the icons
-    "show-passive-items": true, // Shows icons even if they aren't "active"
-    "reverse-direction": false // New icons appear on the left instead of right
+        "icon-size": 16, // The size of the icons in pixels
+        "spacing": 8, // Gap between the icons
+        "show-passive-items": true, // Shows icons even if they aren't "active"
+        "reverse-direction": false // New icons appear on the left instead of right
     },
-    
     "clock": {
         "format": "{:%H:%M}  ",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
-            "mode"          : "month",
-            "mode-mon-col"  : 3,
-            "weeks-pos"     : "right",
-            "on-scroll"     : 1,
+            "mode": "month",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
             "format": {
-                "months":     "<span color='#ffead3'><b>{}</b></span>",
-                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-                "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
             }
         },
-        "actions":  {
+        "actions": {
             "on-click-right": "mode",
             "on-scroll-up": "shift_up",
             "on-scroll-down": "shift_down"
         }
     },
     "hyprland/language": {
-    "format": "{}",
-    "format-en": "US",
-    "format-bg": "BG",
-    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next"
+        "format": "{}",
+        "format-en": "US",
+        "format-bg": "BG",
+        "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next"
     },
-
     "battery": {
         "states": {
             "warning": 30,
             "critical": 15
         },
         "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
-
     "network": {
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr}",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "on-click": "nm-connection-editor" // <--- ADD THIS LINE
+        "on-click": "~/.config/hypr/scripts/quickshell/qs_manager.sh toggle network"
     },
-    
     "custom/notification": {
-     "tooltip": false,
-     "format": "{icon} {text}",
-     "format-icons": {
-         "notification": "<span foreground='red'><sup></sup></span>",
-         "none": "",
-         "dnd-notification": "<span foreground='red'><sup></sup></span>",
-         "dnd-none": "",
-         "inhibited-notification": "<span foreground='red'><sup></sup></span>",
-         "inhibited-none": "",
-         "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-         "dnd-inhibited-none": ""
-     },
-     "return-type": "json",
-     "exec-if": "which swaync-client",
-     "exec": "swaync-client -swb",
-     "on-click": "sleep 0.1; swaync-client -t -sw",
-     "on-click-right": "swaync-client -d -sw",
-     "escape": true
+        "tooltip": false,
+        "format": "{icon} {text}",
+        "format-icons": {
+            "notification": "<span foreground='red'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-none": "",
+            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "sleep 0.1; swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
     },
-
     "network#vpn": {
         "interface": "tun0",
         "format": "VPN",
-        "format-disconnected": "", 
+        "format-disconnected": "",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
         "on-click": "nm-connection-editor"
     },
     "bluetooth": {
-    "format": "",
-    "format-connected": " {device_alias}",
-    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
-    // Tooltip shows all connected devices on hover
-    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-    // Left-click opens the Bluetooth manager GUI
-    "on-click": "blueman-manager"
+        "format": "",
+        "format-connected": " {device_alias}",
+        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        // Tooltip shows all connected devices on hover
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        // Left-click opens the Bluetooth manager GUI
+        "on-click": "~/.config/hypr/scripts/quickshell/qs_manager.sh toggle network bluetooth"
     },
-
     "pulseaudio": {
-    // Adds the Bluetooth icon if a headset is connected
-    "format": "{icon} {volume}%",
-    "format-bluetooth": " {icon} {volume}%",
-    "format-muted": " Muted",
-    "format-icons": {
-        "headphone": "",
-        "hands-free": "",
-        "headset": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
-        "default": ["", ""]
-    },
-    "scroll-step": 5,
-    // Left-click opens the advanced volume mixer
-    "on-click": "pavucontrol",
-    // Right-click mutes the audio
-    "on-click-right": "pamixer -t" 
+        // Adds the Bluetooth icon if a headset is connected
+        "format": "{icon} {volume}%",
+        "format-bluetooth": " {icon} {volume}%",
+        "format-muted": " Muted",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                ""
+            ]
+        },
+        "scroll-step": 5,
+        // Left-click opens the advanced volume mixer
+        "on-click": "pavucontrol",
+        // Right-click mutes the audio
+        "on-click-right": "pamixer -t"
     },
     "backlight": {
-    // "device": "intel_backlight", // You can usually leave this commented out and it will auto-detect
-    "format": "{icon} {percent}%",
-    "format-icons": ["󰃞", "󰃟", "󰃠"],
-    "on-scroll-up": "brightnessctl set 1%+",
-    "on-scroll-down": "brightnessctl set 1%-",
-    "min-length": 6
+        // "device": "intel_backlight", // You can usually leave this commented out and it will auto-detect
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰃞",
+            "󰃟",
+            "󰃠"
+        ],
+        "on-scroll-up": "brightnessctl set 1%+",
+        "on-scroll-down": "brightnessctl set 1%-",
+        "min-length": 6
     },
     "custom/vpn": {
-    "exec": "~/dotfiles/scripts/wireguard-vpn/wireguard.sh",
-    "return-type": "json",
-    "interval": 5,
-    "format": "󰆧 {}",
-    "on-click": "~/dotfiles/scripts/wireguard-vpn/wireguard-rofi.sh",
-    "tooltip": false
-},
+        "exec": "~/dotfiles/scripts/wireguard-vpn/wireguard.sh",
+        "return-type": "json",
+        "interval": 5,
+        "format": "󰆧 {}",
+        "on-click": "~/dotfiles/scripts/wireguard-vpn/wireguard-rofi.sh",
+        "tooltip": false
+    },
 }

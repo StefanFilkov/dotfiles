@@ -8,3 +8,5 @@ starship init fish | source
 alias l="ls -la"
 abbr -a k kubectl
 abbr -a kns kubens
+
+export PATH="$HOME/.local/bin:$PATH"
