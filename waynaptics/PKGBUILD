@@ -1,0 +1,61 @@
+# Maintainer: Stefan Filkov
+# waynaptics: X11 xf86-input-synaptics touchpad driver ported to Wayland.
+# Reads the touchpad evdev device and emits a virtual mouse via /dev/uinput.
+# Pinned to the exact upstream commits that were inspected + tested on this machine.
+pkgname=waynaptics
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Synaptics touchpad driver (xf86-input-synaptics) ported to Wayland via uinput"
+arch=('x86_64')
+url="https://github.com/kekekeks/waynaptics"
+license=('MIT')
+depends=('libevdev' 'glib2' 'qt6-base')
+makedepends=('cmake' 'git' 'pkgconf')
+backup=('etc/waynaptics.conf')
+install="$pkgname.install"
+
+_commit=de8c112890b9ab66b2cd8462f79b3dfa9bfb1727
+_syncommit=42ac30568e7faa87f0c1def66aa696a6d55dd2ad
+
+source=(
+  "$pkgname::git+https://github.com/kekekeks/waynaptics.git#commit=$_commit"
+  "synaptics::git+https://gitlab.freedesktop.org/xorg/driver/xf86-input-synaptics.git#commit=$_syncommit"
+  "waynaptics.service"
+)
+sha256sums=('SKIP' 'SKIP' 'SKIP')
+
+prepare() {
+  cd "$srcdir/$pkgname"
+  # Wire the separately-fetched submodule into place (file:// transport must be
+  # explicitly allowed on modern git).
+  git submodule init
+  git config submodule.external/xf86-input-synaptics.url "$srcdir/synaptics"
+  git -c protocol.file.allow=always submodule update --recursive
+}
+
+build() {
+  cd "$srcdir/$pkgname"
+  # -fpermissive: upstream synaptics.c trips GCC 14+'s -Werror=incompatible-pointer-types
+  # (their CI builds on Debian 12 / GCC 12 where it is only a warning). Downgrades it
+  # back to a warning; functionally identical driver-registration code.
+  cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_CONFIG_TOOL=ON \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_C_FLAGS="-fpermissive"
+  cmake --build build -j"$(nproc)"
+}
+
+package() {
+  cd "$srcdir/$pkgname"
+  DESTDIR="$pkgdir" cmake --install build
+
+  # Replace the stock unit with our version (touchpad device baked into ExecStart).
+  install -Dm644 "$srcdir/waynaptics.service" \
+    "$pkgdir/usr/lib/systemd/system/waynaptics.service"
+
+  # Default (empty/comments-only) config. backup=() keeps user edits across upgrades.
+  install -Dm644 dist/waynaptics.conf "$pkgdir/etc/waynaptics.conf"
+
+  install -Dm644 LICENSE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

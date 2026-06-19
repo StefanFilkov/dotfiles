@@ -1,0 +1,8 @@
+# makepkg build artifacts
+/src/
+/pkg/
+/waynaptics/
+/synaptics/
+*.pkg.tar.zst
+*.pkg.tar.xz
+*.log

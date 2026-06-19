@@ -1,0 +1,22 @@
+post_install() {
+  systemctl daemon-reload
+  systemctl enable --now waynaptics.service
+  echo ">>> waynaptics enabled and started: the touchpad is now driven by waynaptics."
+  echo ">>> Configure (GUI):   waynaptics-config"
+  echo ">>> Stop/disable:      sudo systemctl disable --now waynaptics"
+  echo ">>> Fully remove:      sudo pacman -Rns waynaptics"
+}
+
+post_upgrade() {
+  systemctl daemon-reload
+  systemctl try-restart waynaptics.service
+}
+
+pre_remove() {
+  systemctl disable --now waynaptics.service || true
+}
+
+post_remove() {
+  systemctl daemon-reload
+  echo ">>> waynaptics removed. Your touchpad reverts to normal libinput handling on next login/reboot."
+}
